@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:untitled1/core/assets/app_assets.dart';
 import 'tabs_screen/chat_screen/chat_screen.dart';
 import 'tabs_screen/explore_screen/explore_screen.dart';
 import 'tabs_screen/home_tab/home_tab.dart';
@@ -18,60 +20,86 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
 
-  List<Widget> tabs = [
-    const HomeTab(),
-    const ExploreScreen(),
-    const TripScreen(),
-    const QuizScreen(),
-    const ChatScreen(),
-    const ProfileScreen(),
-  ];
+  void _onTabChanged(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> tabs = [
+      HomeTab(onTabChanged: _onTabChanged),
+      const ExploreScreen(),
+      const TripScreen(),
+      const QuizScreen(),
+      const ProfileScreen(),
+    ];
+
     return Scaffold(
-      body: tabs[selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: selectedIndex,
-        onTap: (index) {
-          setState(() {
-            selectedIndex = index;
-          });
-        },
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: const Color(0xFF8BAE8E),
-        unselectedItemColor: Colors.grey,
-        showUnselectedLabels: true,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            activeIcon: Icon(Icons.home),
-            label: 'Home',
+      extendBody: true,
+      body: Stack(
+        children: [
+          tabs[selectedIndex >= tabs.length ? 0 : selectedIndex],
+          _buildFloatingBottomNavBar(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFloatingBottomNavBar() {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 30, left: 30, right: 30),
+        height: 65,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 20,
+              offset: const Offset(0, 10),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _buildNavItem(AppAssets.homeIcon, 'Home', 0),
+            _buildNavItem(AppAssets.exploreIcon, 'Explore', 1),
+            _buildNavItem(AppAssets.tripIcon, 'Trip', 2),
+            _buildNavItem(AppAssets.quizIcon, 'Quiz', 3),
+            _buildNavItem(AppAssets.profileIcon, 'Profile', 4),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNavItem(String icon, String label, int index) {
+    bool isSelected = selectedIndex == index;
+    Color color = isSelected ? const Color(0xFF6D8B6D) : Colors.grey.shade400;
+
+    return GestureDetector(
+      onTap: () => _onTabChanged(index),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SvgPicture.asset(
+            icon,
+            colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+            height: 22,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.explore_outlined),
-            activeIcon: Icon(Icons.explore),
-            label: 'Explore',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.location_on_outlined),
-            activeIcon: Icon(Icons.location_on),
-            label: 'Trip',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.quiz_outlined),
-            activeIcon: Icon(Icons.quiz),
-            label: 'Quiz',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat_bubble_outline),
-            activeIcon: Icon(Icons.chat_bubble),
-            label: 'Chat',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            activeIcon: Icon(Icons.person),
-            label: 'Profile',
+          const SizedBox(height: 4),
+          Text(
+            label,
+            style: TextStyle(
+              color: color,
+              fontSize: 10,
+              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+            ),
           ),
         ],
       ),

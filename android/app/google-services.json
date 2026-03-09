@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "850154372810",
+    "project_id": "travelme-3d302",
+    "storage_bucket": "travelme-3d302.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:850154372810:android:450fb379d99faf6739be33",
+        "android_client_info": {
+          "package_name": "com.example.untitled1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZTMs1G8FIi95oSK3RlU-YTkCZ6SMrzTQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
