@@ -1,7 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:untitled1/ui/onboarding/onboarding_screen.dart'; // المسار الصحيح بناءً على الصورة
+import 'package:untitled1/ui/onboarding/onboarding_screen.dart';
 import 'package:untitled1/ui/home_screen/home_screen.dart';
 import 'package:untitled1/ui/home_screen/tabs_screen/chat_screen/chat_screen.dart';
 import 'package:untitled1/ui/home_screen/tabs_screen/explore_screen/explore_screen.dart';
@@ -10,6 +9,8 @@ import 'package:untitled1/ui/home_screen/tabs_screen/quiz_screen/quiz_screen.dar
 import 'package:untitled1/ui/home_screen/tabs_screen/trip_screen/trip_screen.dart';
 import 'package:untitled1/ui/login_screen/login_screen.dart';
 import 'package:untitled1/ui/register_screen/register_screen.dart';
+import 'package:untitled1/ui/splash_screen/splash_screen.dart';
+
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -33,8 +34,9 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
 
-      home: const OnboardingScreen(),
+      home: const SplashScreen(),
       routes: {
+        SplashScreen.routeName: (context) => const SplashScreen(),
         OnboardingScreen.routeName: (context) => const OnboardingScreen(),
         HomeScreen.routeName: (context) => const HomeScreen(),
         LoginScreen.routeName: (context) => const LoginScreen(),
