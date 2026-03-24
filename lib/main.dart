@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      // جعل شاشة الـ Onboarding هي نقطة البداية
+
       home: const OnboardingScreen(),
       routes: {
         OnboardingScreen.routeName: (context) => const OnboardingScreen(),

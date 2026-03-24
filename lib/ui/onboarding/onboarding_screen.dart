@@ -40,7 +40,7 @@ class OnboardingScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(160),
                     image: const DecorationImage(
-                      // السطر ده هو اللي كان فيه المشكلة، اتأكد إنه كدة بالظبط:
+
                       image: AssetImage('assets/images/onboarding.png'),
                       fit: BoxFit.cover,
                     ),
